@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # localhost TCP port scanner
+# 0-1024        well-known ports
+# 1024-49151    registered ports
+# 49151-65535   dynamic/private ports
 
 host=localhost
 
