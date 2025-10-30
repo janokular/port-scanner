@@ -15,6 +15,27 @@ fi
 start_port=$1
 end_port=$2
 
+function is_port_valid() {
+  local port=$1
+  if [[ $port =~ ^[0-9]+$ ]]; then
+    if [[ $port -le 0 ]] || [[ $port -ge 65535 ]]; then
+      echo "$port is not in range 0-65535"
+      exit 1
+    fi
+  else
+    echo "$port is not a number"
+    exit 1
+  fi
+}
+
+is_port_valid $start_port
+is_port_valid $end_port
+
+if [[ $start_port -gt $end_port ]]; then
+  echo 'Starting port cannot be greater than ending port'
+  exit 1
+fi
+
 echo 'Scanning ports...'
 for (( port=$start_port; port<=$end_port; port++ )); do
   timeout 1 bash -c "< /dev/tcp/$host/$port" 2&> /dev/null
