@@ -15,7 +15,7 @@ fi
 start_port=$1
 end_port=$2
 
-function is_port_valid() {
+function validate_port() {
   local port=$1
   if [[ $port =~ ^[0-9]+$ ]]; then
     if [[ $port -le 0 ]] || [[ $port -ge 65535 ]]; then
@@ -28,8 +28,8 @@ function is_port_valid() {
   fi
 }
 
-is_port_valid $start_port
-is_port_valid $end_port
+validate_port $start_port
+validate_port $end_port
 
 if [[ $start_port -gt $end_port ]]; then
   echo 'Starting port cannot be greater than ending port'
